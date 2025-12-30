@@ -105,4 +105,58 @@ nav {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     font-weight: bold;
 }
+/* Services Specific Styles */
+.services-header {
+    text-align: center;
+    padding: 60px 5%;
+    background-color: var(--light);
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 60px 10%;
+    justify-content: center;
+}
+
+.service-category {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.service-category h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.service-item {
+    margin-bottom: 25px;
+}
+
+.service-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.service-item p {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.services-cta {
+    text-align: center;
+    padding: 50px;
+    background: var(--dark);
+    color: var(--white);
+}
+
+.services-cta p {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
 
