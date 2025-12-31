@@ -365,4 +365,75 @@ nav::after {
     font-size: 0.85rem;
     color: #666;
 }
+.portfolio {
+    padding: 80px 10%;
+    background-color: var(--light);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    gap: 20px;
+    grid-auto-flow: dense;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--dark);
+    transition: 0.5s ease;
+}
+
+/* Creating the "Masonry" effect */
+.gallery-item.large { grid-row: span 2; grid-column: span 2; }
+.gallery-item.tall { grid-row: span 2; }
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    transition: 0.5s;
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, var(--dark));
+    color: var(--white);
+    transition: 0.4s;
+}
+
+/* Hover Effects */
+.gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px var(--glow-color);
+    z-index: 10;
+}
+
+.gallery-item:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.gallery-item:hover .overlay {
+    bottom: 0;
+}
+
+.gallery-item span {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+    .gallery-item.large { grid-row: span 1; grid-column: span 1; }
+}
 
