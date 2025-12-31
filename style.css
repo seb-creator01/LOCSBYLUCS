@@ -159,4 +159,22 @@ nav {
     margin-bottom: 20px;
     font-size: 1.2rem;
 }
+.about-hero {
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 80px 10%;
+}
+
+.about-content {
+    padding: 60px 15%;
+    line-height: 1.8;
+    color: #444;
+}
+
+.about-content h2 {
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+}
 
