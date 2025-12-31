@@ -1,17 +1,18 @@
 :root {
-    /* Royal & Beautiful Palette */
-    --dark: #2D033B;       /* Deep Royal Purple */
-    --gold: #FFD700;       /* Bright Vibrant Gold */
-    --light: #F1F1F1;      /* Crisp White */
-    --white: #ffffff;
-    --accent: #810CA8;     /* Bright Magenta/Purple */
+    /* New Earthy Premium Palette */
+    --dark: #2E2E2E;       /* Deep Charcoal Text */
+    --gold: #6B8E6E;       /* Soft Olive Green (Primary) */
+    --light: #FAF7F2;      /* Warm Cream Background */
+    --white: #ffffff;      /* Pure White */
+    --accent: #8B5E3C;     /* Warm Brown for details */
+    --glow-color: rgba(107, 142, 110, 0.4); /* Olive Glow */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--white);
+    background-color: var(--light); /* Updated to Warm Cream */
     color: var(--dark);
     line-height: 1.6;
 }
@@ -26,7 +27,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold); /* Olive border */
     overflow: hidden;
 }
 
@@ -61,7 +62,7 @@ nav::after {
 .nav-links { display: flex; list-style: none; position: relative; z-index: 2; }
 .nav-links li { margin: 0 15px; }
 .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--gold); }
 
 /* Glowing Nav Button */
 .nav-cta {
@@ -73,7 +74,7 @@ nav::after {
     font-size: 0.85rem;
     position: relative;
     z-index: 2;
-    animation: purpleGlow 3s infinite;
+    animation: accentGlow 3s infinite;
 }
 
 /* Hero Styles */
@@ -88,7 +89,7 @@ nav::after {
 }
 
 .hero-overlay {
-    background: rgba(45, 3, 59, 0.6); 
+    background: rgba(46, 46, 46, 0.5); /* Tinted with Charcoal */
     padding: 40px;
     width: 100%;
     height: 100%;
@@ -99,10 +100,10 @@ nav::after {
 
 .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 10px; }
 
-/* Glowing Gold Button */
+/* Glowing Olive Button */
 .btn-gold {
     background: var(--gold);
-    color: var(--dark);
+    color: var(--white);
     padding: 15px 30px;
     text-decoration: none;
     display: inline-block;
@@ -128,14 +129,14 @@ nav::after {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
-/* GLOW ANIMATIONS */
+/* UPDATED GLOW ANIMATIONS */
 @keyframes goldGlow {
     0% { box-shadow: 0 0 5px var(--gold); }
-    50% { box-shadow: 0 0 20px var(--gold), 0 0 30px var(--gold); }
+    50% { box-shadow: 0 0 20px var(--gold), 0 0 30px var(--glow-color); }
     100% { box-shadow: 0 0 5px var(--gold); }
 }
 
-@keyframes purpleGlow {
+@keyframes accentGlow {
     0% { box-shadow: 0 0 5px var(--accent); }
     50% { box-shadow: 0 0 15px var(--accent); }
     100% { box-shadow: 0 0 5px var(--accent); }
@@ -190,17 +191,18 @@ nav::after {
 
 .service-category h2 {
     font-family: 'Playfair Display', serif;
-    color: var(--accent);
+    color: var(--gold); /* Olive Category Titles */
     margin-bottom: 30px;
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 10px;
 }
 
 .service-item {
     margin-bottom: 25px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
     padding: 15px;
     border-radius: 8px;
+    border: 1px solid #eee;
 }
 
 .service-item h3 {
@@ -236,7 +238,7 @@ nav::after {
 }
 
 .about-content h2 {
-    color: var(--accent);
+    color: var(--gold);
     margin-bottom: 20px;
     font-family: 'Playfair Display', serif;
 }
@@ -252,7 +254,7 @@ nav::after {
     display: flex;
     justify-content: center;
     padding: 50px 10%;
-    background-color: #fff;
+    background-color: var(--light);
 }
 
 .contact-card {
@@ -260,11 +262,11 @@ nav::after {
     backdrop-filter: blur(10px);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(45, 3, 59, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     max-width: 500px;
     width: 100%;
     text-align: center;
-    border: 1px solid rgba(255, 215, 0, 0.3);
+    border: 1px solid var(--gold);
 }
 
 .contact-card h2 {
@@ -305,13 +307,14 @@ nav::after {
 .btn-insta:hover {
     box-shadow: 0 0 20px rgba(225, 48, 108, 0.6);
 }
+
 /* Professional Footer Styles */
 .pro-footer {
     background-color: var(--dark);
     color: var(--white);
     padding: 60px 10% 20px;
     margin-top: 50px;
-    border-top: 3px solid var(--gold);
+    border-top: 4px solid var(--accent); /* Warm Brown border */
 }
 
 .footer-grid {
@@ -323,7 +326,7 @@ nav::after {
 
 .footer-info h3 {
     font-family: 'Playfair Display', serif;
-    color: var(--gold);
+    color: var(--gold); /* Olive Logo */
     margin-bottom: 15px;
 }
 
