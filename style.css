@@ -305,4 +305,53 @@ nav::after {
 .btn-insta:hover {
     box-shadow: 0 0 20px rgba(225, 48, 108, 0.6);
 }
+/* Professional Footer Styles */
+.pro-footer {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 60px 10% 20px;
+    margin-top: 50px;
+    border-top: 3px solid var(--gold);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-info h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-bottom: 15px;
+}
+
+.footer-contact h4, .footer-socials h4 {
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: var(--gold);
+}
+
+.footer-contact p, .footer-socials a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.footer-socials a:hover {
+    color: var(--gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    color: #777;
+}
 
