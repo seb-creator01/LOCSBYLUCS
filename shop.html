@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | LOCSBYLUCS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">LOCSBYLUCS</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" style="color:var(--gold)">Shop</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="intro" style="padding: 50px 10%;">
+        <h2>The Boutique</h2>
+        <p>Premium hair care products delivered to your door.</p>
+    </header>
+
+    <div id="product-container" class="shop-grid">
+        <p style="text-align:center;">Loading products...</p>
+    </div>
+
+    <script>
+        // PASTE YOUR PUBLISHED GOOGLE CSV LINK BELOW
+        const csvUrl = "PASTE_YOUR_LINK_HERE";
+
+        async function getProducts() {
+            try {
+                const response = await fetch(csvUrl);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1); // Skip the header row
+                
+                let html = '';
+                rows.forEach(row => {
+                    const columns = row.split(',');
+                    if (columns.length >= 4) {
+                        const [name, price, desc, img] = columns;
+                        html += `
+                            <div class="product-card">
+                                <img src="${img.trim()}" alt="${name}" style="width:100%; border-radius:10px;">
+                                <h3 style="margin:15px 0 5px;">${name}</h3>
+                                <p style="color:var(--gold); font-weight:bold;">${price}</p>
+                                <p style="font-size:0.9rem; color:#666; margin-bottom:15px;">${desc}</p>
+                                <a href="https://wa.me/2349061667591?text=Hello, I want to buy ${name}" class="btn-gold" style="display:block; text-align:center;">Buy on WhatsApp</a>
+                            </div>
+                        `;
+                    }
+                });
+                document.getElementById('product-container').innerHTML = html;
+            } catch (error) {
+                document.getElementById('product-container').innerHTML = "<p>Error loading products. Check your link!</p>";
+            }
+        }
+        getProducts();
+    </script>
+
+</body>
+</html>
 
