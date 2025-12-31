@@ -178,3 +178,58 @@ nav {
     font-family: 'Playfair Display', serif;
 }
 
+/* Contact Page Styles */
+.contact-header {
+    background-color: var(--light);
+    text-align: center;
+    padding: 60px 10%;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    padding: 50px 10%;
+    background-color: #fff;
+}
+
+.contact-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.contact-card h2 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.btn-insta {
+    background: #E1306C;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+}
