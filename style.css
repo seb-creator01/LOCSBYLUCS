@@ -1,8 +1,9 @@
 :root {
-    --gold: #b58900;
-    --dark: #121212;
-    --light: #f9f9f9;
+    --dark: #1a1a1a;       /* Rich Black */
+    --gold: #c5a059;       /* Muted Champagne Gold */
+    --light: #f4f4f4;      /* Soft White/Grey */
     --white: #ffffff;
+    --accent: #333333;     /* Charcoal */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
