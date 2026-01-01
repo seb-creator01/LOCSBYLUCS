@@ -708,3 +708,39 @@ nav::after {
     text-overflow: ellipsis;
 }
 
+/* MOBILE NAVIGATION UPDATE */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; 
+        padding: 15px 5%;
+        height: auto;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap; /* Allows Shop, About, etc. to wrap to a new line */
+        justify-content: center;
+        gap: 5px;
+        margin: 15px 0;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin: 4px;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem; /* Slightly smaller for mobile fitting */
+        padding: 6px 12px;
+    }
+
+    .nav-cta {
+        width: 100%;
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+}
+
