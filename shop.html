@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | LOCSBYLUCS</title>
+    <title>Shop | LOCSBYLUCS ET THE CLIPPERGODDESS</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,19 +13,50 @@
         <div class="logo">LOCSBYLUCS</div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html" style="color:var(--gold)">Shop</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li> 
         </ul>
+        <a href="https://wa.me/2349061667591" class="nav-cta">Book Session</a>
     </nav>
 
-    <header class="intro" style="padding: 50px 10%;">
-        <h2>The Boutique</h2>
-        <p>Premium hair care products delivered to your door.</p>
+    <header class="shop-header">
+        <div class="hero-overlay" style="padding: 60px 20px;">
+            <span class="badge">The Boutique</span>
+            <h1 style="color: var(--accent); font-family: 'Playfair Display', serif; font-size: 3rem;">Premium Essentials</h1>
+            <p style="color: white;">Handcrafted organic hair care products for your crown.</p>
+        </div>
     </header>
 
-    <div id="product-container" class="shop-grid">
-        <p style="text-align:center;">Loading products...</p>
-    </div>
+    <section class="shop-container" style="padding: 60px 10%;">
+        <div id="product-container" class="shop-grid">
+            <p style="text-align:center;">Enhancing your beauty... Loading products...</p>
+        </div>
+    </section>
+
+    <footer class="pro-footer">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>LOCSBYLUCS</h3>
+                <p>Master Dreadlock Artistry & <br> Precision Grooming</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Professional Contact</h4>
+                <p>📞 +234 906 166 7591</p>
+                <p>📧 info@locsbylucs.com</p>
+                <p>📍 Futo Owerri, Nigeria</p>
+            </div>
+            <div class="footer-socials">
+                <h4>Follow the Art</h4>
+                <a href="https://instagram.com/locsbylucs">Instagram</a>
+                <a href="https://wa.me/2349061667591">WhatsApp</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LOCSBYLUCS ET THE CLIPPERGODDESS. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script>
         // PASTE YOUR PUBLISHED GOOGLE CSV LINK BELOW
@@ -35,7 +66,7 @@
             try {
                 const response = await fetch(csvUrl);
                 const data = await response.text();
-                const rows = data.split('\n').slice(1); // Skip the header row
+                const rows = data.split('\n').slice(1); 
                 
                 let html = '';
                 rows.forEach(row => {
@@ -44,18 +75,20 @@
                         const [name, price, desc, img] = columns;
                         html += `
                             <div class="product-card">
-                                <img src="${img.trim()}" alt="${name}" style="width:100%; border-radius:10px;">
-                                <h3 style="margin:15px 0 5px;">${name}</h3>
-                                <p style="color:var(--gold); font-weight:bold;">${price}</p>
-                                <p style="font-size:0.9rem; color:#666; margin-bottom:15px;">${desc}</p>
-                                <a href="https://wa.me/2349061667591?text=Hello, I want to buy ${name}" class="btn-gold" style="display:block; text-align:center;">Buy on WhatsApp</a>
+                                <div class="product-img-wrapper">
+                                    <img src="${img.trim()}" alt="${name}">
+                                </div>
+                                <h3>${name}</h3>
+                                <p class="product-price">${price}</p>
+                                <p class="product-desc">${desc}</p>
+                                <a href="https://wa.me/2349061667591?text=Hello, I want to buy ${name}" class="btn-gold">Order via WhatsApp</a>
                             </div>
                         `;
                     }
                 });
                 document.getElementById('product-container').innerHTML = html;
             } catch (error) {
-                document.getElementById('product-container').innerHTML = "<p>Error loading products. Check your link!</p>";
+                document.getElementById('product-container').innerHTML = "<p>Error loading products. Check your Google Sheets link!</p>";
             }
         }
         getProducts();
