@@ -59,24 +59,45 @@
     </footer>
 
     <script>
-        // PASTE YOUR PUBLISHED GOOGLE CSV LINK BELOW
+        // YOUR PUBLISHED GOOGLE CSV LINK
         const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQso3e4KqywmnY-_-LipS7xfbIOdfHRbhUIio4pWCka-FbYJFdIRJNYdILOll6MMxm-KP4v-AOu80Qx/pub?gid=0&single=true&output=csv";
 
         async function getProducts() {
             try {
                 const response = await fetch(csvUrl);
                 const data = await response.text();
-                const rows = data.split('\n').slice(1); 
+                
+                // Helper function to handle CSV rows with commas and quotes
+                const parseCSVRow = (row) => {
+                    const result = [];
+                    let cell = "";
+                    let inQuotes = false;
+                    for (let i = 0; i < row.length; i++) {
+                        let char = row[i];
+                        if (char === '"' && row[i+1] === '"') { cell += '"'; i++; }
+                        else if (char === '"') { inQuotes = !inQuotes; }
+                        else if (char === ',' && !inQuotes) { result.push(cell); cell = ""; }
+                        else { cell += char; }
+                    }
+                    result.push(cell);
+                    return result;
+                };
+
+                const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1); 
                 
                 let html = '';
                 rows.forEach(row => {
-                    const columns = row.split(',');
+                    const columns = parseCSVRow(row);
                     if (columns.length >= 4) {
-                        const [name, price, desc, img] = columns;
+                        const name = columns[0].trim();
+                        const price = columns[1].trim();
+                        const desc = columns[2].trim();
+                        const img = columns[3].trim();
+                        
                         html += `
                             <div class="product-card">
                                 <div class="product-img-wrapper">
-                                    <img src="${img.trim()}" alt="${name}">
+                                    <img src="${img}" alt="${name}" onerror="this.src='https://via.placeholder.com/300?text=Product+Image'">
                                 </div>
                                 <h3>${name}</h3>
                                 <p class="product-price">${price}</p>
@@ -88,7 +109,8 @@
                 });
                 document.getElementById('product-container').innerHTML = html;
             } catch (error) {
-                document.getElementById('product-container').innerHTML = "<p>Error loading products. Check your Google Sheets link!</p>";
+                console.error("Error loading products:", error);
+                document.getElementById('product-container').innerHTML = "<p style='text-align:center;'>Error loading products. Check your Google Sheets link!</p>";
             }
         }
         getProducts();
