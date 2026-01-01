@@ -505,4 +505,50 @@ nav::after {
     .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
     .gallery-item.large { grid-row: span 1; grid-column: span 1; }
 }
+/* About Page Specific Styles */
+.about-hero {
+    height: 60vh;
+    background: linear-gradient(rgba(42, 9, 68, 0.6), rgba(42, 9, 68, 0.6)), 
+                url('https://images.unsplash.com/photo-1593121925328-369cc8459c08?q=80&w=2070') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+}
+
+.about-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--accent); /* Gold highlight */
+}
+
+.about-content {
+    padding: 100px 10%;
+    background-color: var(--white);
+    text-align: center;
+}
+
+.bio {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.bio h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin: 20px 0;
+}
+
+.bio p {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.bio strong {
+    color: var(--gold);
+}
 
