@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | LOCSBYLUCS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <style>
+        .admin-body { background: var(--dark); color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-card, .dashboard-card { background: white; color: var(--dark); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 450px; text-align: center; }
+        .hidden { display: none; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-post { background: var(--gold); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div id="login-section" class="login-card">
+        <h2>Admin Access</h2>
+        <p>Enter secret passphrase to manage shop</p>
+        <input type="password" id="passphrase" placeholder="Passphrase">
+        <button class="btn-post" onclick="checkPass()">Login</button>
+    </div>
+
+    <div id="dashboard-section" class="dashboard-card hidden">
+        <h2>Add New Product</h2>
+        <input type="text" id="p-name" placeholder="Product Name">
+        <input type="text" id="p-price" placeholder="Price (e.g. ₦5,000)">
+        <input type="text" id="p-img" placeholder="Image URL">
+        <textarea id="p-desc" placeholder="Product Description" rows="4"></textarea>
+        <button class="btn-post" id="save-btn">Upload to Shop</button>
+        <p id="status-msg" style="margin-top:10px; font-size: 0.9rem;"></p>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM4a-GtiUX8EaM4XscpjRRqnEsebUmZDg",
+            authDomain: "locsbylucs.firebaseapp.com",
+            projectId: "locsbylucs",
+            storageBucket: "locsbylucs.firebasestorage.app",
+            messagingSenderId: "19418940874",
+            appId: "1:19418940874:web:f1a83f5616bd4713e73b33"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function checkPass() {
+            const pass = document.getElementById('passphrase').value;
+            if(pass === "junior123") {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.remove('hidden');
+            } else {
+                alert("Wrong passphrase!");
+            }
+        }
+
+        document.getElementById('save-btn').addEventListener('click', async () => {
+            const name = document.getElementById('p-name').value;
+            const price = document.getElementById('p-price').value;
+            const img = document.getElementById('p-img').value;
+            const desc = document.getElementById('p-desc').value;
+            const msg = document.getElementById('status-msg');
+
+            if(!name || !price || !img) return alert("Fill all fields");
+
+            msg.innerText = "Uploading...";
+
+            try {
+                await db.collection("products").add({
+                    name: name,
+                    price: price,
+                    image: img,
+                    description: desc,
+                    createdAt: new Date()
+                });
+                msg.style.color = "green";
+                msg.innerText = "Success! Product is live.";
+                // Clear fields
+                document.getElementById('p-name').value = "";
+                document.getElementById('p-price').value = "";
+                document.getElementById('p-img').value = "";
+                document.getElementById('p-desc').value = "";
+            } catch (e) {
+                msg.style.color = "red";
+                msg.innerText = "Error: " + e.message;
+            }
+        });
+    </script>
+</body>
+</html>
