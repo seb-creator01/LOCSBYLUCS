@@ -70,16 +70,16 @@ nav::after {
     z-index: 2;
 }
 
-/* Logo Image Fixes - FORCED LARGER SIZE */
+/* Logo Image Fixes - OPTIMIZED FOR WIDE LOGO IMG-20260116-WA0038.jpg */
 .logo img {
-    height: 120px !important; /* SIGNIFICANTLY LARGER */
-    width: auto !important;
-    max-width: 250px;
+    width: 280px !important; /* Specific width for horizontal clarity */
+    height: auto !important;
+    max-width: 85vw;         /* Safety for mobile screens */
     display: block !important;
     object-fit: contain !important;
-    margin: 5px 0;
+    margin: 10px 0;
     transition: transform 0.3s ease;
-    filter: brightness(1.1) drop-shadow(0px 4px 6px rgba(0,0,0,0.1)); /* Improves visibility */
+    filter: brightness(1.05) drop-shadow(0px 4px 8px rgba(0,0,0,0.3)); /* Premium visibility */
 }
 
 .logo:hover img {
@@ -725,13 +725,14 @@ nav::after {
     padding: 12px;
 }
 
-/* MOBILE NAVIGATION UPDATE */
+/* MOBILE NAVIGATION UPDATE - OPTIMIZED FOR WIDE LOGO */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
-        padding: 15px 5%;
+        padding: 20px 5%;
         height: auto;
         min-height: auto;
+        text-align: center;
     }
 
     .nav-links { 
@@ -755,9 +756,10 @@ nav::after {
         text-align: center; 
     } 
     
-    /* Mobile Logo Fix */
+    /* Mobile Logo Fix - Increased width for visibility */
     .logo img {
-        height: 100px !important;
+        width: 250px !important;
+        height: auto !important;
     }
 }
 
