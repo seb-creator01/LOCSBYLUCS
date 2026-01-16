@@ -32,14 +32,15 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
+    padding: 10px 5%; /* Reduced vertical padding to accommodate larger logo */
     background: var(--white);
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 2px solid var(--gold);
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to allow logo to breathe */
     box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    min-height: 100px; /* Ensures the nav bar is tall enough for the logo */
 }
 
 nav::after {
@@ -62,29 +63,23 @@ nav::after {
 
 /* UPDATED: Glowing Logo & Support for Image Logo */
 .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--dark);
-    position: relative;
-    z-index: 2;
-    text-shadow: 0 0 8px rgba(161, 37, 104, 0.2);
-    animation: logoGlowPulse 3s infinite alternate;
     display: flex;
     align-items: center;
-    text-decoration: none; /* Added to remove underline from link */
+    text-decoration: none;
+    position: relative;
+    z-index: 2;
 }
 
-/* Logo Image Fixes - UPDATED FOR VISIBILITY */
+/* Logo Image Fixes - FORCED LARGER SIZE */
 .logo img {
-    height: 90px !important; /* Increased significantly for visibility */
+    height: 120px !important; /* SIGNIFICANTLY LARGER */
     width: auto !important;
+    max-width: 250px;
     display: block !important;
     object-fit: contain !important;
-    margin-right: 10px;
+    margin: 5px 0;
     transition: transform 0.3s ease;
-    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1)); /* Makes gold pop */
+    filter: brightness(1.1) drop-shadow(0px 4px 6px rgba(0,0,0,0.1)); /* Improves visibility */
 }
 
 .logo:hover img {
@@ -736,6 +731,7 @@ nav::after {
         flex-direction: column;
         padding: 15px 5%;
         height: auto;
+        min-height: auto;
     }
 
     .nav-links { 
@@ -759,11 +755,9 @@ nav::after {
         text-align: center; 
     } 
     
-    .logo { font-size: 1.3rem; } 
-
-    /* Mobile Logo Fix - UPDATED FOR VISIBILITY */
+    /* Mobile Logo Fix */
     .logo img {
-        height: 75px !important;
+        height: 100px !important;
     }
 }
 
