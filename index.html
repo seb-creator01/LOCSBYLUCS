@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LOCSBYLUCS ET THE CLIPPERGODDESS | Premium Hair Artistry</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -35,9 +35,30 @@
         </div>
     </header>
 
-    <section class="intro">
-        <h2>Locs Meets Precision</h2>
-        <p>Combining the organic soul of master loc artistry with the sharp edge of modern grooming. We don't just do hair; we craft identity.</p>
+    <section id="admin-dashboard" style="display: none; padding: 100px 10%; background: var(--light);">
+        <div class="testi-header">
+            <span class="badge">Staff Only</span>
+            <h2>Admin Control Panel</h2>
+            <button onclick="logoutAdmin()" class="btn-outline" style="color: var(--gold); border-color: var(--gold); margin-top: 10px;">Logout</button>
+        </div>
+        
+        <div class="testi-grid">
+            <div class="testi-card">
+                <h4>Manage Orders</h4>
+                <p>View and update client product purchases.</p>
+                <a href="#" class="btn-gold" style="padding: 10px 20px; font-size: 0.8rem;">View Orders</a>
+            </div>
+            <div class="testi-card">
+                <h4>Appointments</h4>
+                <p>Check the schedule for Locs & Fades.</p>
+                <a href="#" class="btn-gold" style="padding: 10px 20px; font-size: 0.8rem;">View Schedule</a>
+            </div>
+            <div class="testi-card">
+                <h4>Shop Inventory</h4>
+                <p>Update prices and stock for Herbal Oils.</p>
+                <a href="#" class="btn-gold" style="padding: 10px 20px; font-size: 0.8rem;">Update Shop</a>
+            </div>
+        </div>
     </section>
 
     <section class="portfolio">
@@ -49,75 +70,59 @@
             <div class="gallery-item">
                 <div class="overlay" style="bottom: 0; background: var(--dark); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px;">
                     <span style="font-size: 1.5rem; color: var(--accent); margin-bottom: 10px;">Organic Mastery</span>
-                    <p style="color: white; font-size: 0.9rem;">We use only the finest herbal oils and natural techniques to ensure your locs thrive from the roots up.</p>
+                    <p style="color: white; font-size: 0.9rem;">Using the finest herbal oils to ensure your locs thrive from the roots up.</p>
                 </div>
             </div>
             <div class="gallery-item">
                 <div class="overlay" style="bottom: 0; background: var(--gold); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px;">
                     <span style="font-size: 1.5rem; color: var(--white); margin-bottom: 10px;">Precision Grooming</span>
-                    <p style="color: white; font-size: 0.9rem;">The Clippergoddess brings world-class fading and sculpting techniques to every single session.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="overlay" style="bottom: 0; background: var(--dark); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px;">
-                    <span style="font-size: 1.5rem; color: var(--accent); margin-bottom: 10px;">Futo's Finest</span>
-                    <p style="color: white; font-size: 0.9rem;">Proudly serving the Owerri community with a premium studio experience designed for your comfort.</p>
+                    <p style="color: white; font-size: 0.9rem;">World-class fading and sculpting techniques for the modern crown.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <section class="testimonials">
-        <div class="testi-header">
-            <span class="badge">Testimonials</span>
-            <h2>The Royal Word</h2>
-            <p>What our community is saying</p>
-        </div>
-        <div class="testi-grid">
-            <div class="testi-card">
-                <div class="stars">★★★★★</div>
-                <p>"Best loc maintenance I've had in Owerri. The palm rolling is precise and the vibes are unmatched."</p>
-                <h4>— Chidi O.</h4>
-            </div>
-            <div class="testi-card">
-                <div class="stars">★★★★★</div>
-                <p>"The Clippergoddess is a magician with the fades. Clean lines every single time. Highly recommended!"</p>
-                <h4>— Emeka J.</h4>
-            </div>
-            <div class="testi-card">
-                <div class="stars">★★★★★</div>
-                <p>"Their herbal hair oil actually works. My locs are healthier and the shine is incredible."</p>
-                <h4>— Sarah A.</h4>
-            </div>
-        </div>
-    </section>
-
-    <a href="https://wa.me/2349061667591" class="whatsapp-float">
-        Book on WhatsApp
-    </a>
 
     <footer class="pro-footer">
         <div class="footer-grid">
             <div class="footer-info">
                 <h3>LOCSBYLUCS</h3>
+                <a href="javascript:void(0)" onclick="loginAdmin()" style="color: var(--accent); text-decoration: none; font-size: 0.8rem; display: block; margin-top: 10px; text-transform: uppercase;">Admin Dashboard</a>
                 <p>Master Dreadlock Artistry & <br> Precision Grooming</p>
             </div>
             <div class="footer-contact">
-                <h4>Professional Contact</h4>
+                <h4>Contact</h4>
                 <p>📞 +234 906 166 7591</p>
-                <p>📧 info@locsbylucs.com</p>
                 <p>📍 Futo Owerri, Nigeria</p>
             </div>
             <div class="footer-socials">
-                <h4>Follow the Art</h4>
+                <h4>Socials</h4>
                 <a href="https://instagram.com/locsbylucs">Instagram</a>
                 <a href="https://wa.me/2349061667591">WhatsApp</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 LOCSBYLUCS ET THE CLIPPERGODDESS. All Rights Reserved.</p>
+            <p>&copy; 2025 LOCSBYLUCS ET THE CLIPPERGODDESS.</p>
         </div>
     </footer>
 
+    <script>
+        function loginAdmin() {
+            const pass = prompt("Enter Admin Passphrase:");
+            if (pass === "junior123") {
+                document.getElementById('admin-dashboard').style.display = 'block';
+                document.getElementById('admin-dashboard').scrollIntoView({ behavior: 'smooth' });
+                alert("Welcome back, Admin.");
+            } else {
+                alert("Incorrect passphrase.");
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('admin-dashboard').style.display = 'none';
+            window.scrollTo(0,0);
+        }
+    </script>
+
 </body>
 </html>
+
