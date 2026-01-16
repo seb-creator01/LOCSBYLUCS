@@ -8,9 +8,12 @@
     --glow-color: rgba(161, 37, 104, 0.4); /* Purple Glow */
 }
 
-/* Pro Touch: Scroll Behavior - FIXED: Set to auto to prevent drifting */
-html {
-    scroll-behavior: auto;
+/* FIX: Stable Scroll & Anti-Shift Logic */
+html, body {
+    scroll-behavior: auto !important; /* Stops the drifting/jumping */
+    overflow-x: hidden !important;    /* Prevents sideways shifting */
+    width: 100%;
+    position: relative;
 }
 
 /* FIXED: Added the missing '*' selector here */
@@ -41,6 +44,7 @@ nav {
     overflow: visible; /* Changed from hidden to allow logo to breathe */
     box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     min-height: 100px; /* Ensures the nav bar is tall enough for the logo */
+    width: 100%;
 }
 
 nav::after {
@@ -68,13 +72,14 @@ nav::after {
     text-decoration: none;
     position: relative;
     z-index: 2;
+    max-width: 60%; /* Stability fix */
 }
 
 /* Logo Image Fixes - OPTIMIZED FOR WIDE LOGO IMG-20260116-WA0038.jpg */
 .logo img {
     width: 280px !important; /* Specific width for horizontal clarity */
     height: auto !important;
-    max-width: 85vw;         /* Safety for mobile screens */
+    max-width: 100%;         /* Stability for mobile screens */
     display: block !important;
     object-fit: contain !important;
     margin: 10px 0;
@@ -148,6 +153,7 @@ nav::after {
     justify-content: center;
     text-align: center;
     color: var(--white);
+    width: 100%;
 }
 
 .hero-overlay {
@@ -455,6 +461,7 @@ nav::after {
 .portfolio {
     padding: 80px 10%;
     background-color: var(--light);
+    width: 100%;
 }
 
 .gallery-grid {
@@ -462,6 +469,7 @@ nav::after {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
     grid-auto-rows: 300px !important; 
     gap: 20px !important;
+    width: 100%;
 }
 
 .gallery-item {
@@ -548,6 +556,7 @@ nav::after {
     justify-content: center;
     text-align: center;
     color: var(--white);
+    width: 100%;
 }
 
 .about-hero h1 {
@@ -595,6 +604,7 @@ nav::after {
     justify-content: center;
     text-align: center;
     color: var(--white);
+    width: 100%;
 }
 
 .contact-header h1 {
@@ -648,6 +658,7 @@ nav::after {
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: 100%;
 }
 
 .shop-grid {
