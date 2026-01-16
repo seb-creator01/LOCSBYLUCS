@@ -747,3 +747,42 @@ nav::after {
         font-size: 1.3rem;
     }
 }
+
+/* =========================================
+   ADDITIONAL MOBILE & GALLERY FIXES 
+   ========================================= */
+
+/* Ensure the grid never collapses and all images are visible */
+.gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    grid-auto-rows: 300px !important;
+    gap: 20px !important;
+}
+
+/* Forces images to stay within their containers on small screens */
+.gallery-item img {
+    max-width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Fix for broken logos: Ensures your new Gold Logo takes up proper space */
+.logo img {
+    height: 50px !important;
+    width: auto !important;
+    object-fit: contain !important;
+}
+
+@media (max-width: 600px) {
+    /* Resets large/tall grid spans so images don't push each other off-screen */
+    .gallery-item.large, .gallery-item.tall {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+        grid-auto-rows: 350px !important;
+    }
+}
