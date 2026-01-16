@@ -8,9 +8,9 @@
     --glow-color: rgba(161, 37, 104, 0.4); /* Purple Glow */
 }
 
-/* Pro Touch: Smooth Scrolling */
+/* Pro Touch: Scroll Behavior - FIXED: Set to auto to prevent drifting */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 /* FIXED: Added the missing '*' selector here */
