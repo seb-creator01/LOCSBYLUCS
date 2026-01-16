@@ -76,14 +76,15 @@ nav::after {
     text-decoration: none; /* Added to remove underline from link */
 }
 
-/* Logo Image Fixes */
+/* Logo Image Fixes - UPDATED FOR VISIBILITY */
 .logo img {
-    height: 60px !important; /* Increased for better visibility */
+    height: 90px !important; /* Increased significantly for visibility */
     width: auto !important;
     display: block !important;
     object-fit: contain !important;
     margin-right: 10px;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1)); /* Makes gold pop */
 }
 
 .logo:hover img {
@@ -760,9 +761,9 @@ nav::after {
     
     .logo { font-size: 1.3rem; } 
 
-    /* Mobile Logo Fix */
+    /* Mobile Logo Fix - UPDATED FOR VISIBILITY */
     .logo img {
-        height: 50px !important;
+        height: 75px !important;
     }
 }
 
