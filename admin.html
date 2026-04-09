@@ -7,20 +7,61 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <!-- Cloudinary Widget SDK -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <!-- Font Awesome for eye icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .admin-body { background: var(--dark); color: white; min-height: 100vh; padding: 40px 20px; font-family: 'Inter', sans-serif; }
-        .admin-container { max-width: 800px; margin: 0 auto; }
+        .admin-container { max-width: 1000px; margin: 0 auto; }
         .login-card, .dashboard-card { background: white; color: var(--dark); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; margin-bottom: 30px; position: relative; }
         .hidden { display: none; }
         input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
         .btn-post { background: var(--gold); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         
+        /* Password wrapper for eye icon */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 45px;
+            margin: 0;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+        .toggle-password:hover {
+            color: var(--gold, #d4af37);
+        }
+        
         /* Logout Button Style */
         .btn-exit { background: #333; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; position: absolute; top: 20px; right: 20px; font-size: 0.8rem; }
         
-        .manage-section { background: white; color: var(--dark); padding: 30px; border-radius: 20px; }
-        .product-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+        .manage-section { background: white; color: var(--dark); padding: 30px; border-radius: 20px; margin-top: 20px; }
+        .product-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 10px; }
+        .product-info { flex: 1; }
+        .product-actions { display: flex; gap: 10px; }
+        .btn-edit { background: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
         .btn-delete { background: #ff4d4d; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .btn-upload-cloud { background: linear-gradient(135deg, #2c3e66, #1e2a4a); color: white; border: none; padding: 12px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 5px; width: auto; display: inline-flex; align-items: center; gap: 8px; }
+        .cloud-helper { font-size: 0.8rem; color: #666; margin-top: 5px; }
+        .image-preview { max-width: 60px; max-height: 60px; border-radius: 8px; margin-left: 10px; vertical-align: middle; }
+        .edit-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
+        .edit-modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 500px; width: 90%; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; }
+        .toast-msg { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: #0a0a0a; padding: 12px 24px; border-radius: 50px; font-weight: 600; z-index: 9999; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
 <body class="admin-body">
@@ -29,7 +70,10 @@
         <div id="login-section" class="login-card">
             <h2 style="font-family: 'Playfair Display', serif;">Admin Access</h2>
             <p>Enter secret passphrase</p>
-            <input type="password" id="passphrase" placeholder="Passphrase">
+            <div class="password-wrapper">
+                <input type="password" id="passphrase" placeholder="Passphrase">
+                <i class="fas fa-eye toggle-password" id="togglePassIcon"></i>
+            </div>
             <button class="btn-post" onclick="checkPass()">Login</button>
         </div>
 
@@ -40,20 +84,45 @@
                 <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Add New Product</h2>
                 <input type="text" id="p-name" placeholder="Product Name">
                 <input type="text" id="p-price" placeholder="Price (e.g. ₦5,000)">
-                <input type="text" id="p-img" placeholder="Image URL">
+                
+                <!-- Cloudinary direct upload zone - replaces manual image URL -->
+                <div style="text-align: left; margin: 10px 0;">
+                    <label style="font-weight: bold;">Product Image (Upload from Gallery)</label>
+                    <input type="text" id="p-img" placeholder="Image URL will auto-fill after upload" readonly style="background: #f5f5f5;">
+                    <button type="button" id="cloudinaryUploadBtn" class="btn-upload-cloud">
+                        📤 Upload Image from Gallery
+                    </button>
+                    <div class="cloud-helper">Click above to select image directly from your phone/computer gallery → Cloudinary auto-uploads → URL fills automatically</div>
+                </div>
+                
                 <textarea id="p-desc" placeholder="Product Description" rows="3"></textarea>
                 <button class="btn-post" id="save-btn">Upload to Shop</button>
                 <p id="status-msg" style="margin-top:10px; font-size: 0.9rem; font-weight: bold;"></p>
             </div>
 
             <div class="manage-section">
-                <h3>Manage Current Products</h3>
+                <h3>Manage Current Products (Edit / Delete)</h3>
                 <div id="manage-list"></div>
             </div>
         </div>
     </div>
 
+    <!-- Edit Product Modal -->
+    <div id="editModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            <h3 style="margin-bottom: 20px;">Edit Product</h3>
+            <input type="text" id="edit-name" placeholder="Product Name">
+            <input type="text" id="edit-price" placeholder="Price">
+            <input type="text" id="edit-img" placeholder="Image URL (can be updated)">
+            <button type="button" id="editCloudBtn" class="btn-upload-cloud" style="margin: 10px 0; width: 100%;">📤 Upload New Image from Gallery</button>
+            <textarea id="edit-desc" placeholder="Description" rows="3"></textarea>
+            <button class="btn-post" id="confirmEditBtn">Save Changes</button>
+        </div>
+    </div>
+
     <script>
+        // ==================== FIREBASE CONFIG (YOUR EXISTING) ====================
         const firebaseConfig = {
             apiKey: "AIzaSyCM4a-GtiUX8EaM4XscpjRRqnEsebUmZDg",
             authDomain: "locsbylucs.firebaseapp.com",
@@ -65,6 +134,110 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
+        // ==================== CLOUDINARY CREDENTIALS ====================
+        const CLOUD_NAME = "ddm87a9p2";
+        const UPLOAD_PRESET = "slit_hub";
+        
+        // Global variable to store current product id being edited
+        let currentEditId = null;
+        let cloudinaryWidget = null;
+        let activeImageInput = null; // tracks which input field to fill (add product or edit modal)
+
+        // Helper: Toast notifications
+        function showToast(message, isError = false) {
+            const existing = document.querySelector(".toast-msg");
+            if (existing) existing.remove();
+            const toast = document.createElement("div");
+            toast.className = "toast-msg";
+            toast.style.background = isError ? "#dc2626" : "#d4af37";
+            toast.style.color = isError ? "white" : "#0a0a0a";
+            toast.innerHTML = isError ? `⚠️ ${message}` : `✅ ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        // ==================== PASSWORD EYE TOGGLE ====================
+        function initPasswordToggle() {
+            const toggleIcon = document.getElementById("togglePassIcon");
+            const passwordInput = document.getElementById("passphrase");
+            if (toggleIcon && passwordInput) {
+                toggleIcon.addEventListener("click", function() {
+                    // Toggle password visibility
+                    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                    passwordInput.setAttribute("type", type);
+                    // Toggle eye icon
+                    this.classList.toggle("fa-eye");
+                    this.classList.toggle("fa-eye-slash");
+                });
+            }
+        }
+
+        // ==================== CLOUDINARY WIDGET (DIRECT GALLERY UPLOAD) ====================
+        function initCloudinaryWidget() {
+            if (typeof cloudinary === "undefined" || !cloudinary.createUploadWidget) {
+                setTimeout(initCloudinaryWidget, 500);
+                return;
+            }
+            const widgetConfig = {
+                cloudName: CLOUD_NAME,
+                uploadPreset: UPLOAD_PRESET,
+                sources: ["local", "camera", "gallery"],
+                multiple: false,
+                cropping: false,
+                showAdvancedOptions: false,
+                defaultSource: "gallery",
+                clientAllowedFormats: ["image/jpeg", "image/png", "image/webp", "image/jpg"],
+                maxFileSize: 10485760,
+                styles: {
+                    palette: {
+                        window: "#0a0a0a",
+                        windowBorder: "#d4af37",
+                        tabIcon: "#d4af37",
+                        menuIcons: "#d4af37",
+                        textDark: "#ffffff",
+                        textLight: "#d4af37",
+                        link: "#d4af37",
+                        action: "#d4af37",
+                        inactiveTabIcon: "#666666",
+                        error: "#dc2626",
+                        inProgress: "#d4af37",
+                        complete: "#10b981",
+                        sourceBg: "#1a1a1a"
+                    }
+                }
+            };
+            cloudinaryWidget = cloudinary.createUploadWidget(widgetConfig, (error, result) => {
+                if (error) {
+                    showToast("Upload failed", true);
+                    return;
+                }
+                if (result && result.event === "success") {
+                    const secureUrl = result.info.secure_url;
+                    if (activeImageInput) {
+                        document.getElementById(activeImageInput).value = secureUrl;
+                        showToast("Image uploaded! URL added.");
+                    } else {
+                        // fallback: if triggered without active target, fill main product image
+                        document.getElementById("p-img").value = secureUrl;
+                        showToast("Image ready for product");
+                    }
+                    activeImageInput = null;
+                }
+            });
+        }
+
+        function openCloudinaryUpload(targetInputId) {
+            activeImageInput = targetInputId;
+            if (cloudinaryWidget) {
+                cloudinaryWidget.open();
+            } else {
+                showToast("Initializing uploader...");
+                initCloudinaryWidget();
+                setTimeout(() => { if (cloudinaryWidget) cloudinaryWidget.open(); else showToast("Please refresh", true); }, 800);
+            }
+        }
+
+        // ==================== LOGIN & EXISTING AUTH ====================
         function checkPass() {
             const pass = document.getElementById('passphrase').value;
             if(pass === "locsbylucs123") {
@@ -74,14 +247,13 @@
             } else { alert("Wrong passphrase!"); }
         }
 
-        // EXIT / LOGOUT FUNCTION
         function logout() {
             if(confirm("Are you sure you want to exit the dashboard?")) {
-                window.location.href = "index.html"; // Takes her back to homepage
+                window.location.href = "index.html";
             }
         }
 
-        // SAVE PRODUCT
+        // ==================== SAVE PRODUCT (with Cloudinary auto-filled image) ====================
         document.getElementById('save-btn').addEventListener('click', async () => {
             const name = document.getElementById('p-name').value;
             const price = document.getElementById('p-price').value;
@@ -89,9 +261,11 @@
             const desc = document.getElementById('p-desc').value;
             const msg = document.getElementById('status-msg');
 
-            if(!name || !price || !img) return alert("Fill Name, Price, and Image URL");
-            msg.innerText = "Uploading...";
-
+            if(!name || !price || !img) {
+                alert("Fill Name, Price, and upload an image using the Cloudinary button.");
+                return;
+            }
+            msg.innerText = "Uploading to shop...";
             try {
                 await db.collection("products").add({
                     name: name, price: price, image: img, description: desc,
@@ -104,30 +278,120 @@
                 document.getElementById('p-img').value = "";
                 document.getElementById('p-desc').value = "";
                 loadManageList();
-            } catch (e) { msg.style.color = "red"; msg.innerText = "Error: " + e.message; }
+                showToast("Product added successfully!");
+            } catch (e) { msg.style.color = "red"; msg.innerText = "Error: " + e.message; showToast(e.message, true); }
         });
 
+        // ==================== LOAD PRODUCTS WITH EDIT & DELETE ====================
         async function loadManageList() {
             const listDiv = document.getElementById('manage-list');
-            listDiv.innerHTML = "Loading...";
-            const snapshot = await db.collection("products").orderBy("createdAt", "desc").get();
-            listDiv.innerHTML = "";
-            snapshot.forEach(doc => {
-                const p = doc.data();
-                listDiv.innerHTML += `
-                    <div class="product-item">
-                        <div><strong>${p.name}</strong><br><small>${p.price}</small></div>
-                        <button class="btn-delete" onclick="deleteProduct('${doc.id}', '${p.name}')">Delete</button>
-                    </div>`;
+            listDiv.innerHTML = "Loading products...";
+            try {
+                const snapshot = await db.collection("products").orderBy("createdAt", "desc").get();
+                listDiv.innerHTML = "";
+                if (snapshot.empty) {
+                    listDiv.innerHTML = "<p style='text-align:center;'>No products yet. Add your first product above!</p>";
+                    return;
+                }
+                snapshot.forEach(doc => {
+                    const p = doc.data();
+                    const productDiv = document.createElement("div");
+                    productDiv.className = "product-item";
+                    productDiv.innerHTML = `
+                        <div class="product-info">
+                            <strong>${escapeHtml(p.name)}</strong><br>
+                            <small>${escapeHtml(p.price)}</small><br>
+                            <small style="font-size:0.7rem; color:#666;">${p.image ? p.image.substring(0, 40) + "..." : "no img"}</small>
+                            ${p.image ? `<br><img src="${p.image}" class="image-preview" alt="preview" onerror="this.style.display='none'">` : ""}
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-edit" onclick="openEditModal('${doc.id}', '${escapeHtml(p.name).replace(/'/g, "\\'")}', '${escapeHtml(p.price).replace(/'/g, "\\'")}', '${escapeHtml(p.image || "").replace(/'/g, "\\'")}', '${escapeHtml(p.description || "").replace(/'/g, "\\'")}')">✏️ Edit</button>
+                            <button class="btn-delete" onclick="deleteProduct('${doc.id}', '${escapeHtml(p.name).replace(/'/g, "\\'")}')">🗑️ Delete</button>
+                        </div>
+                    `;
+                    listDiv.appendChild(productDiv);
+                });
+            } catch(e) { listDiv.innerHTML = "Error loading products."; console.error(e); }
+        }
+
+        function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
+
+        // ==================== DELETE PRODUCT (Enhanced) ====================
+        async function deleteProduct(id, name) {
+            if(confirm(`Delete "${name}" permanently?`)) {
+                try {
+                    await db.collection("products").doc(id).delete();
+                    loadManageList();
+                    showToast(`"${name}" deleted.`);
+                } catch(e) { showToast("Delete failed: " + e.message, true); }
+            }
+        }
+
+        // ==================== EDIT PRODUCT MODAL LOGIC ====================
+        function openEditModal(id, name, price, image, description) {
+            currentEditId = id;
+            document.getElementById("edit-name").value = name;
+            document.getElementById("edit-price").value = price;
+            document.getElementById("edit-img").value = image;
+            document.getElementById("edit-desc").value = description;
+            document.getElementById("editModal").style.display = "flex";
+        }
+
+        function closeEditModal() {
+            document.getElementById("editModal").style.display = "none";
+            currentEditId = null;
+        }
+
+        // Save edited product
+        document.getElementById("confirmEditBtn").addEventListener("click", async () => {
+            if (!currentEditId) return;
+            const newName = document.getElementById("edit-name").value;
+            const newPrice = document.getElementById("edit-price").value;
+            const newImg = document.getElementById("edit-img").value;
+            const newDesc = document.getElementById("edit-desc").value;
+            if (!newName || !newPrice || !newImg) {
+                alert("Product name, price and image are required.");
+                return;
+            }
+            try {
+                await db.collection("products").doc(currentEditId).update({
+                    name: newName, price: newPrice, image: newImg, description: newDesc
+                });
+                showToast("Product updated successfully!");
+                closeEditModal();
+                loadManageList();
+            } catch(e) { alert("Error updating: " + e.message); }
+        });
+
+        // Cloudinary upload for Edit Modal
+        const editCloudBtn = document.getElementById("editCloudBtn");
+        if (editCloudBtn) {
+            editCloudBtn.addEventListener("click", () => {
+                openCloudinaryUpload("edit-img");
             });
         }
 
-        async function deleteProduct(id, name) {
-            if(confirm(`Delete "${name}"?`)) {
-                await db.collection("products").doc(id).delete();
-                loadManageList();
-            }
+        // ==================== ATTACH CLOUDINARY BUTTON FOR MAIN ADD PRODUCT ====================
+        const mainUploadBtn = document.getElementById("cloudinaryUploadBtn");
+        if (mainUploadBtn) {
+            mainUploadBtn.addEventListener("click", () => {
+                openCloudinaryUpload("p-img");
+            });
         }
+
+        // Initialize Cloudinary widget and password toggle when page loads
+        window.addEventListener("DOMContentLoaded", () => {
+            initCloudinaryWidget();
+            initPasswordToggle();
+            // Also ensure we have event listener for closing modal on outside click
+            window.onclick = function(event) {
+                const modal = document.getElementById("editModal");
+                if (event.target === modal) closeEditModal();
+            };
+        });
+
+        // Preserve existing loadManageList call after login: already called inside checkPass
+        console.log("Admin ready with Cloudinary direct gallery upload + edit/delete products + password visibility toggle");
     </script>
 </body>
 </html>
