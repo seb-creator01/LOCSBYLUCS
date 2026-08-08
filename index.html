@@ -169,7 +169,9 @@
         </div>
     </footer>
 
-    <!-- === PWA POPUP HTML (ADDED BEFORE SCRIPT) === -->
+    <!-- ========================================== -->
+    <!-- PWA INSTALL POPUP HTML & JAVASCRIPT (ADDED) -->
+    <!-- ========================================== -->
     <div id="pwa-install-banner" class="pwa-banner" style="display: none;">
         <div class="pwa-content">
             <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
@@ -178,7 +180,74 @@
         </div>
     </div>
 
-    <!-- Your Existing Script Link (Keep this exactly where it was) -->
-    <script src="script.js"></script>
+    <script>
+        // PWA Install Banner Logic
+        let deferredPrompt;
+        const installBanner = document.getElementById('pwa-install-banner');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const closeBtn = document.getElementById('pwa-close-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    deferredPrompt = null;
+                    installBanner.style.display = 'none';
+                }
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            installBanner.style.display = 'none';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBanner.style.display = 'none';
+            deferredPrompt = null;
+        });
+
+        // Register Service Worker for PWA caching
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- RESPONSIVE CSS PATCH (ADDED AT BOTTOM)      -->
+    <!-- ========================================== -->
+    <style>
+        /* Extra safety for mobile screens */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem !important; }
+            .intro, .testimonials, .portfolio { padding: 60px 5% !important; }
+            .price-list-section { padding: 60px 5% !important; }
+            .whatsapp-float { 
+                bottom: 80px !important; /* Moves it up so it doesn't hide behind the PWA popup */
+                padding: 10px 18px !important;
+                font-size: 0.9rem !important;
+            }
+            .logo img { width: 220px !important; } /* Slightly smaller on mobile */
+        }
+        @media (max-width: 450px) {
+            .hero h1 { font-size: 2rem !important; }
+            .hero-overlay { padding: 20px !important; }
+            .btn-gold, .btn-outline { padding: 12px 20px !important; font-size: 0.9rem !important; }
+        }
+    </style>
 </body>
 </html>
