@@ -1,11 +1,9 @@
 const CACHE_NAME = 'locsbylucs-v1';
 const ASSETS_TO_CACHE = [
-    '/', 
-    '/index.html', 
-    '/style.css', /* Add your main CSS file name here */
-    '/script.js', /* Add your main JS file name here */
-    /* Add paths to your main logo image here so it loads offline */
-    '/images/locsbylucs-logo.png'
+    '/',
+    '/index.html',
+    '/style.css',
+    '/script.js'
 ];
 
 // Install Service Worker
