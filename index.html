@@ -2,10 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- UPDATED VIEWPORT: Changed user-scalable=no to yes for better responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
     <title>LOCSBYLUCS ET THE CLIPPERGODDESS | Premium Hair Artistry</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- === PWA & APPLE META TAGS (ADDED) === -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LOCSBYLUCS">
+    <link rel="apple-touch-icon" href="images/pwa-icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#A12568"> <!-- Uses your gold/purple accent -->
 </head>
 <body>
 
@@ -158,5 +169,16 @@
         </div>
     </footer>
 
+    <!-- === PWA POPUP HTML (ADDED BEFORE SCRIPT) === -->
+    <div id="pwa-install-banner" class="pwa-banner" style="display: none;">
+        <div class="pwa-content">
+            <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
+            <button id="pwa-install-btn" class="pwa-btn">Install App</button>
+            <button id="pwa-close-btn" class="pwa-close">✕</button>
+        </div>
+    </div>
+
+    <!-- Your Existing Script Link (Keep this exactly where it was) -->
+    <script src="script.js"></script>
 </body>
 </html>
