@@ -797,7 +797,7 @@ nav::after {
     transform: translateX(-50%);
     width: 90%;
     max-width: 500px;
-    background: #2A0944; /* Deep purple from your branding */
+    background: #2A0944; /* Deep purple */
     color: #FEC260;      /* Gold accent */
     border: 2px solid #A12568;
     border-radius: 12px;
@@ -842,11 +842,4 @@ nav::after {
 }
 .pwa-close:hover {
     opacity: 1;
-}
-
-/* Hide the banner on large desktop screens where PWA install isn't usually prompted */
-@media (min-width: 1024px) {
-    .pwa-banner {
-        max-width: 400px;
-    }
 }
