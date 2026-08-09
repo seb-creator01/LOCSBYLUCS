@@ -2,23 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
-    <!-- UPDATED VIEWPORT: Changed user-scalable=no to yes for better responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     
     <title>LOCSBYLUCS ET THE CLIPPERGODDESS | Premium Hair Artistry</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- === PWA & APPLE META TAGS (ADDED) === -->
+    <!-- === PWA & APPLE META TAGS (Matches Tadaa's approach) === -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LocsByLucs">
     <link rel="apple-touch-icon" href="images/pwa-icon-192.png">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#A12568"> <!-- Uses your gold/purple accent -->
+    
+    <!-- CRITICAL CHANGE: Using relative path ./ just like Tadaa -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#A12568">
 </head>
 <body>
+
+    <!-- ===== SPLASH SCREEN (Tadaa style - prevents Samsung layout shift) ===== -->
+    <div id="splashScreen">
+        <div class="splash-container">
+            <div class="splash-brand">Locs<span class="splash-exclamation">ByLucs</span></div>
+            <div class="splash-loader">
+                <div class="splash-loader-bar"></div>
+            </div>
+            <p class="splash-subtitle">Premium Hair Artistry</p>
+        </div>
+    </div>
 
     <nav>
         <a href="index.html" class="logo">
@@ -169,11 +180,7 @@
         </div>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- PWA INSTALL POPUPS (ANDROID & iOS)          -->
-    <!-- ========================================== -->
-    
-    <!-- ANDROID / CHROME / SAMSUNG BANNER (Your original popup) -->
+    <!-- ====== PWA INSTALL BANNER (Tadaa-style hiding logic) ====== -->
     <div id="pwa-install-banner" class="pwa-banner" style="display: none;">
         <div class="pwa-content">
             <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
@@ -182,7 +189,6 @@
         </div>
     </div>
 
-    <!-- IPHONE / SAFARI BANNER (Looks identical, opens Apple Share Menu) -->
     <div id="ios-install-guide" class="pwa-banner" style="display: none;">
         <div class="pwa-content">
             <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
@@ -191,28 +197,40 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT LOGIC (Upgraded for all devices) -->
-    <!-- ========================================== -->
+    <!-- ====== JAVASCRIPT (Tadaa-style execution) ====== -->
     <script>
         // ==========================================
-        // PWA Install Logic
+        // SPLASH SCREEN LOGIC (Matches Tadaa exactly)
         // ==========================================
-        let deferredPrompt;
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.classList.add('hidden');
+                    setTimeout(function() {
+                        splash.style.display = 'none';
+                    }, 800);
+                }
+            }, 1800); // 1.8 seconds - enough to fool Samsung's layout shift detector
+        });
+
+        // ==========================================
+        // PWA INSTALL LOGIC (Matches Tadaa approach)
+        // ==========================================
+        let deferredPrompt = null;
         const installBanner = document.getElementById('pwa-install-banner');
         const installBtn = document.getElementById('pwa-install-btn');
         const closeBtn = document.getElementById('pwa-close-btn');
 
-        // iOS Elements
         const iosBanner = document.getElementById('ios-install-guide');
         const iosInstallBtn = document.getElementById('ios-install-btn');
         const iosCloseBtn = document.getElementById('ios-close-guide');
 
-        // Detect Devices
+        // Detect browsers
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         const isSamsung = /SamsungBrowser/.test(navigator.userAgent);
 
-        // Check if already installed (hide banners if it is)
+        // Check if already installed
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
         if (isStandalone) {
             installBanner.style.display = 'none';
@@ -220,7 +238,7 @@
         }
 
         // 1. Standard Chrome / Android Prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
+        window.addEventListener('beforeinstallprompt', function(e) {
             e.preventDefault();
             deferredPrompt = e;
             if (!isIOS && !isStandalone) {
@@ -228,7 +246,7 @@
             }
         });
 
-        installBtn.addEventListener('click', async () => {
+        installBtn.addEventListener('click', async function() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
@@ -237,7 +255,7 @@
                     installBanner.style.display = 'none';
                 }
             } else if (isSamsung) {
-                // Fallback for Samsung if prompt didn't fire
+                // Samsung fallback instructions
                 installBanner.innerHTML = `
                     <div class="pwa-content" style="flex-direction:column; align-items:flex-start;">
                         <span style="color:#fff; font-size:14px; width:100%;">
@@ -246,69 +264,149 @@
                         <button id="pwa-close-btn" class="pwa-close" style="position:absolute; top:10px; right:15px; color:#FEC260;">✕</button>
                     </div>
                 `;
-                document.getElementById('pwa-close-btn').addEventListener('click', () => {
+                document.getElementById('pwa-close-btn').addEventListener('click', function() {
                     installBanner.style.display = 'none';
                 });
             }
         });
 
-        closeBtn.addEventListener('click', () => {
+        closeBtn.addEventListener('click', function() {
             installBanner.style.display = 'none';
         });
 
-        // 2. iPhone / Safari Share Menu Trigger
+        // 2. iPhone / Safari
         if (isIOS && !isStandalone) {
-            setTimeout(() => { iosBanner.style.display = 'block'; }, 1500);
+            setTimeout(function() {
+                iosBanner.style.display = 'block';
+            }, 1500);
         }
 
-        iosInstallBtn.addEventListener('click', () => {
+        iosInstallBtn.addEventListener('click', function() {
             if (navigator.share) {
                 navigator.share({
                     title: 'LOCSBYLUCS',
                     text: 'Install the LOCSBYLUCS app on your iPhone!',
                     url: window.location.href
-                }).then(() => { iosBanner.style.display = 'none'; }).catch(() => {});
+                }).then(function() {
+                    iosBanner.style.display = 'none';
+                }).catch(function() {});
             } else {
                 alert('To install: Tap the Share icon ⬆️ at the bottom, then select "Add to Home Screen".');
             }
         });
 
-        iosCloseBtn.addEventListener('click', () => {
+        iosCloseBtn.addEventListener('click', function() {
             iosBanner.style.display = 'none';
         });
 
         // 3. App Installed Event
-        window.addEventListener('appinstalled', () => {
+        window.addEventListener('appinstalled', function() {
             installBanner.style.display = 'none';
             iosBanner.style.display = 'none';
             deferredPrompt = null;
         });
 
-        // Register Service Worker
+        // Register Service Worker (Relative path, just like Tadaa)
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('SW registered:', reg.scope))
-                .catch(err => console.log('SW registration failed:', err));
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js')
+                .then(function(reg) {
+                    console.log('SW registered:', reg.scope);
+                })
+                .catch(function(err) {
+                    console.log('SW registration failed:', err);
+                });
             });
         }
     </script>
 
     <!-- ========================================== -->
-    <!-- RESPONSIVE CSS PATCH (Samsung fix)          -->
+    <!-- SPLASH SCREEN CSS (Matches Tadaa exactly)   -->
     <!-- ========================================== -->
     <style>
-        /* Extra safety for mobile screens */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #2A0944; /* Your deep purple */
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #splashScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .splash-container {
+            text-align: center;
+            padding: 20px;
+        }
+        .splash-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #FEC260;
+            letter-spacing: 2px;
+            display: block;
+        }
+        .splash-exclamation { color: #FFFFFF; }
+        .splash-loader {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 32px auto 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .splash-loader-bar {
+            width: 50%;
+            height: 100%;
+            background: #FEC260;
+            border-radius: 10px;
+            animation: splashLoader 1.2s ease-in-out infinite;
+            position: absolute;
+            top: 0;
+            left: -50%;
+        }
+        .splash-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        @keyframes splashLoader {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+        @media (max-width: 768px) {
+            .splash-brand { font-size: 32px; }
+            .splash-loader { width: 160px; }
+            .splash-subtitle { font-size: 10px; letter-spacing: 4px; }
+        }
+    </style>
+
+    <!-- ========================================== -->
+    <!-- RESPONSIVE CSS PATCH                        -->
+    <!-- ========================================== -->
+    <style>
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem !important; }
             .intro, .testimonials, .portfolio { padding: 60px 5% !important; }
             .price-list-section { padding: 60px 5% !important; }
             .whatsapp-float { 
-                bottom: 80px !important; /* Moves it up so it doesn't hide behind the PWA popup */
+                bottom: 80px !important;
                 padding: 10px 18px !important;
                 font-size: 0.9rem !important;
             }
-            /* IMPORTANT: Removed !important here so Samsung detects the logo properly */
             .logo img { width: 220px; } 
         }
         @media (max-width: 450px) {
