@@ -2,76 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
+    <!-- UPDATED VIEWPORT: Changed user-scalable=no to yes for better responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
     <title>LOCSBYLUCS ET THE CLIPPERGODDESS | Premium Hair Artistry</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- PWA Tags -->
+    <!-- === PWA & APPLE META TAGS (ADDED) === -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LOCSBYLUCS">
     <link rel="apple-touch-icon" href="images/pwa-icon-192.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1A0A2E">
+    <meta name="theme-color" content="#A12568"> <!-- Uses your gold/purple accent -->
 </head>
 <body>
 
-    <!-- ====== NAVIGATION ====== -->
-    <nav class="navbar">
+    <nav>
         <a href="index.html" class="logo">
             <img src="IMG-20260116-WA0038.jpg" alt="LOCSBYLUCS Logo">
         </a>
-        
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <ul class="nav-links" id="navLinks">
+        <ul class="nav-links">
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="shop.html">Shop</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li class="mobile-cta"><a href="https://wa.me/2349061667591" class="nav-cta">Book Session</a></li>
         </ul>
-        
-        <a href="https://wa.me/2349061667591" class="nav-cta desktop-cta">Book Session</a>
+        <a href="https://wa.me/2349061667591" class="nav-cta">Book Session</a>
     </nav>
 
-    <!-- ====== HERO ====== -->
     <header class="hero">
         <div class="hero-overlay">
-            <span class="hero-badge">Luxury Grooming</span>
             <h1>Hair in best hands</h1>
             <p>Master Dreadlock Artistry & Precision Grooming</p>
             <div class="hero-btns">
-                <a href="services.html" class="btn-primary">Explore Services</a>
-                <a href="shop.html" class="btn-secondary">Shop Products</a>
+                <a href="services.html" class="btn-gold">Explore Services</a>
+                <a href="shop.html" class="btn-outline">Shop Products</a>
             </div>
         </div>
     </header>
 
-    <!-- ====== INTRO ====== -->
-    <section class="intro reveal">
+    <section class="intro">
         <h2>Expert Care for Your Crown</h2>
         <p>Combining the natural artistry of Locsbylucs with the precision of The Clippergoddess to give you a premium hair experience.</p>
     </section>
 
-    <!-- ====== PRICE LIST ====== -->
-    <section class="price-list-section reveal">
-        <div class="section-header">
+    <section class="price-list-section">
+        <div class="testi-header" style="text-align: center; margin-bottom: 40px;">
             <span class="badge">Rate Card</span>
-            <h2>Service Menu</h2>
+            <h2 style="color: white;">Service Menu</h2>
         </div>
-        <div class="price-container">
+        <div style="max-width: 600px; margin: 0 auto; padding: 0 20px;">
             <div class="price-row">
                 <span class="price-name">Traditional Locs Installation</span>
                 <span class="price-value">₦25,000+</span>
@@ -91,47 +75,41 @@
         </div>
     </section>
 
-    <!-- ====== PHILOSOPHY GALLERY ====== -->
-    <section class="philosophy-section reveal">
-        <div class="section-header">
+    <section class="portfolio">
+        <div class="testi-header">
             <span class="badge">Our Philosophy</span>
             <h2>Why Choose Our Studio</h2>
         </div>
-        <div class="philosophy-grid">
-            <div class="philosophy-card">
-                <div class="card-content">
-                    <span class="card-icon">✂️</span>
-                    <h3>The Clippergoddess</h3>
-                    <p>Recognized for world-class fades and precision grooming. Every cut is tailored to enhance your individual style.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item" style="height: 250px;">
+                <div class="overlay" style="bottom: 0; background: var(--dark); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px;">
+                    <span style="font-size: 1.3rem; color: var(--accent); margin-bottom: 10px;">The Clippergoddess</span>
+                    <p style="color: white; font-size: 0.85rem;">Recognized for world-class fades and precision grooming. Every cut is tailored to enhance your individual style.</p>
                 </div>
             </div>
-            <div class="philosophy-card">
-                <div class="card-content">
-                    <span class="card-icon">🌿</span>
-                    <h3>Locs by Lucs</h3>
-                    <p>Master of traditional and modern loc techniques. We focus on healthy growth and artistic loc styling.</p>
+            <div class="gallery-item" style="height: 250px;">
+                <div class="overlay" style="bottom: 0; background: var(--gold); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px;">
+                    <span style="font-size: 1.3rem; color: var(--white); margin-bottom: 10px;">Locs by Lucs</span>
+                    <p style="color: white; font-size: 0.85rem;">Master of traditional and modern loc techniques. We focus on healthy growth and artistic loc styling.</p>
                 </div>
             </div>
-            <div class="philosophy-card">
-                <div class="card-content">
-                    <span class="card-icon">💧</span>
-                    <h3>Herbal Mastery</h3>
-                    <p>We believe in the power of nature. We use organic herbal oils and treatments to nourish your crown.</p>
+            <div class="gallery-item" style="height: 250px;">
+                <div class="overlay" style="bottom: 0; background: var(--dark); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px;">
+                    <span style="font-size: 1.3rem; color: var(--accent); margin-bottom: 10px;">Herbal Mastery</span>
+                    <p style="color: white; font-size: 0.85rem;">We believe in the power of nature. We use organic herbal oils and treatments to nourish your crown.</p>
                 </div>
             </div>
-            <div class="philosophy-card">
-                <div class="card-content">
-                    <span class="card-icon">🏆</span>
-                    <h3>Futo's Premium Choice</h3>
-                    <p>A high-end studio experience in Owerri, combining comfort with world-class hair artistry.</p>
+            <div class="gallery-item" style="height: 250px;">
+                <div class="overlay" style="bottom: 0; background: var(--gold); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px;">
+                    <span style="font-size: 1.3rem; color: var(--white); margin-bottom: 10px;">Futo's Premium Choice</span>
+                    <p style="color: white; font-size: 0.85rem;">A high-end studio experience in Owerri, combining comfort with world-class hair artistry.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== TESTIMONIALS ====== -->
-    <section class="testimonials reveal">
-        <div class="section-header">
+    <section class="testimonials">
+        <div class="testi-header">
             <span class="badge">Happy Customers</span>
             <h2>What Our Clients Say</h2>
         </div>
@@ -151,24 +129,37 @@
                 <p>"I love how they prioritize hair health. My locs have never looked this vibrant and neat."</p>
                 <h4>- Somto V.</h4>
             </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"Premium atmosphere and professional service. It's more than just a haircut, it's an experience."</p>
+                <h4>- Emeka J.</h4>
+            </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"The best grooming studio in Futo. If you want quality, this is where you should be."</p>
+                <h4>- Tobi A.</h4>
+            </div>
         </div>
     </section>
 
-    <!-- ====== FOOTER ====== -->
+    <a href="https://wa.me/2349061667591" class="whatsapp-float" target="_blank">
+        <span>Chat with us</span>
+    </a>
+
     <footer class="pro-footer">
         <div class="footer-grid">
             <div class="footer-info">
-                <h3>LOCSBYLUCS</h3>
-                <p>Master Dreadlock Artistry &<br>Precision Grooming</p>
+                <h3><a href="admin.html" style="color: inherit; text-decoration: none; cursor: default;">LOCSBYLUCS</a></h3>
+                <p>Master Dreadlock Artistry & <br> Precision Grooming</p>
             </div>
             <div class="footer-contact">
-                <h4>Contact</h4>
-                <p><a href="tel:+2349061667591">📞 +234 906 166 7591</a></p>
-                <p><a href="mailto:info@locsbylucs.com">📧 info@locsbylucs.com</a></p>
+                <h4>Professional Contact</h4>
+                <p>📞 +234 906 166 7591</p>
+                <p>📧 info@locsbylucs.com</p>
                 <p>📍 Futo Owerri, Nigeria</p>
             </div>
             <div class="footer-socials">
-                <h4>Follow</h4>
+                <h4>Follow the Art</h4>
                 <a href="https://instagram.com/locsbylucs">Instagram</a>
                 <a href="https://wa.me/2349061667591">WhatsApp</a>
             </div>
@@ -178,25 +169,19 @@
         </div>
     </footer>
 
-    <!-- ====== WHATSAPP FLOAT ====== -->
-    <a href="https://wa.me/2349061667591" class="whatsapp-float" target="_blank">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
-        </svg>
-    </a>
-
-    <!-- ====== PWA INSTALL BANNER ====== -->
+    <!-- ========================================== -->
+    <!-- PWA INSTALL POPUP HTML & JAVASCRIPT (ADDED) -->
+    <!-- ========================================== -->
     <div id="pwa-install-banner" class="pwa-banner" style="display: none;">
         <div class="pwa-content">
             <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
-            <button id="pwa-install-btn" class="pwa-btn">Install</button>
+            <button id="pwa-install-btn" class="pwa-btn">Install App</button>
             <button id="pwa-close-btn" class="pwa-close">✕</button>
         </div>
     </div>
 
-    <!-- ====== SCRIPTS ====== -->
     <script>
-        // PWA Banner Logic
+        // PWA Install Banner Logic
         let deferredPrompt;
         const installBanner = document.getElementById('pwa-install-banner');
         const installBtn = document.getElementById('pwa-install-btn');
@@ -228,39 +213,41 @@
             deferredPrompt = null;
         });
 
+        // Register Service Worker for PWA caching
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(() => {});
+                navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
             });
         }
-
-        // Hamburger Menu Logic
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Scroll Reveal Logic
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.15 });
-
-        revealElements.forEach(el => revealObserver.observe(el));
     </script>
+
+    <!-- ========================================== -->
+    <!-- RESPONSIVE CSS PATCH (ADDED AT BOTTOM)      -->
+    <!-- ========================================== -->
+    <style>
+        /* Extra safety for mobile screens */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem !important; }
+            .intro, .testimonials, .portfolio { padding: 60px 5% !important; }
+            .price-list-section { padding: 60px 5% !important; }
+            .whatsapp-float { 
+                bottom: 80px !important; /* Moves it up so it doesn't hide behind the PWA popup */
+                padding: 10px 18px !important;
+                font-size: 0.9rem !important;
+            }
+            .logo img { width: 220px !important; } /* Slightly smaller on mobile */
+        }
+        @media (max-width: 450px) {
+            .hero h1 { font-size: 2rem !important; }
+            .hero-overlay { padding: 20px !important; }
+            .btn-gold, .btn-outline { padding: 12px 20px !important; font-size: 0.9rem !important; }
+        }
+    </style>
 </body>
 </html>
