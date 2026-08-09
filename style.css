@@ -77,11 +77,11 @@ nav::after {
 
 /* Logo Image Fixes - OPTIMIZED FOR WIDE LOGO IMG-20260116-WA0038.jpg */
 .logo img {
-    width: 280px !important; /* Specific width for horizontal clarity */
-    height: auto !important;
+    width: 280px; /* Specific width for horizontal clarity */
+    height: auto;
     max-width: 100%;         /* Stability for mobile screens */
-    display: block !important;
-    object-fit: contain !important;
+    display: block;
+    object-fit: contain;
     margin: 10px 0;
     transition: transform 0.3s ease;
     filter: brightness(1.05) drop-shadow(0px 4px 8px rgba(0,0,0,0.3)); /* Premium visibility */
@@ -465,10 +465,10 @@ nav::after {
 }
 
 .gallery-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-    grid-auto-rows: 300px !important; 
-    gap: 20px !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-auto-rows: 300px; 
+    gap: 20px;
     width: 100%;
 }
 
@@ -491,12 +491,12 @@ nav::after {
 }
 
 .gallery-item img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0.9;
     transition: 0.5s;
-    display: block !important;
+    display: block;
 }
 
 .gallery-item .overlay {
@@ -541,8 +541,8 @@ nav::after {
 
 @media (max-width: 768px) {
     .gallery-grid { 
-        grid-template-columns: 1fr !important; 
-        grid-auto-rows: 350px !important; 
+        grid-template-columns: 1fr; 
+        grid-auto-rows: 350px; 
     }
 }
 
@@ -769,21 +769,21 @@ nav::after {
     
     /* Mobile Logo Fix - Increased width for visibility */
     .logo img {
-        width: 250px !important;
-        height: auto !important;
+        width: 250px;
+        height: auto;
     }
 }
 
 @media (max-width: 600px) {
     /* Resets large/tall grid spans so images don't push each other off-screen */
     .gallery-item.large, .gallery-item.tall {
-        grid-column: span 1 !important;
-        grid-row: span 1 !important;
+        grid-column: span 1;
+        grid-row: span 1;
     }
 
     .gallery-grid { 
-        grid-template-columns: 1fr !important; 
-        grid-auto-rows: 350px !important; 
+        grid-template-columns: 1fr; 
+        grid-auto-rows: 350px; 
     } 
 }
 
