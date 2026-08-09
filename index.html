@@ -1,3 +1,4 @@
+<!-- BUILD: 2.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -300,10 +301,10 @@
             deferredPrompt = null;
         });
 
-        // CRITICAL FIX: Changed to ./sw.js just like Tadaa
+        // UPDATED: Changed to ./sw2.js to bypass Cloudflare cache
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js')
+                navigator.serviceWorker.register('./sw2.js')
                 .then(function(reg) {
                     console.log('SW registered:', reg.scope);
                 })
@@ -409,5 +410,6 @@
             .btn-gold, .btn-outline { padding: 12px 20px !important; font-size: 0.9rem !important; }
         }
     </style>
+<!-- BUILD VERSION: 2.0 -->
 </body>
 </html>
