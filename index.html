@@ -170,8 +170,10 @@
     </footer>
 
     <!-- ========================================== -->
-    <!-- PWA INSTALL POPUP HTML & JAVASCRIPT (ADDED) -->
+    <!-- PWA INSTALL POPUPS (ANDROID & iOS)          -->
     <!-- ========================================== -->
+    
+    <!-- ANDROID / CHROME / SAMSUNG BANNER (Your original popup) -->
     <div id="pwa-install-banner" class="pwa-banner" style="display: none;">
         <div class="pwa-content">
             <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
@@ -180,17 +182,42 @@
         </div>
     </div>
 
+    <!-- IPHONE / SAFARI BANNER (Looks identical, opens Apple Share Menu) -->
+    <div id="ios-install-guide" class="pwa-banner" style="display: none;">
+        <div class="pwa-content">
+            <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
+            <button id="ios-install-btn" class="pwa-btn">Install App</button>
+            <button id="ios-close-guide" class="pwa-close">✕</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC (Updated for all devices)  -->
+    <!-- ========================================== -->
     <script>
-        // PWA Install Banner Logic
+        // ==========================================
+        // PWA & iOS Install Logic
+        // ==========================================
         let deferredPrompt;
         const installBanner = document.getElementById('pwa-install-banner');
         const installBtn = document.getElementById('pwa-install-btn');
         const closeBtn = document.getElementById('pwa-close-btn');
 
+        // iOS Specific Elements
+        const iosBanner = document.getElementById('ios-install-guide');
+        const iosInstallBtn = document.getElementById('ios-install-btn');
+        const iosCloseBtn = document.getElementById('ios-close-guide');
+
+        // Detect if user is on Safari / iPhone
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        // 1. For Android / Chrome / Samsung (The native popup)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installBanner.style.display = 'block';
+            if (!isIOS) {
+                installBanner.style.display = 'block';
+            }
         });
 
         installBtn.addEventListener('click', async () => {
@@ -208,8 +235,37 @@
             installBanner.style.display = 'none';
         });
 
+        // 2. For iPhone / Safari (Mimics Install App via Apple Share Menu)
+        if (isIOS) {
+            // Wait 1.5 seconds so the user sees the page first
+            setTimeout(() => {
+                iosBanner.style.display = 'block';
+            }, 1500);
+        }
+
+        // When iOS user clicks "Install App", trigger Apple's native Share menu
+        iosInstallBtn.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'LOCSBYLUCS',
+                    text: 'Install the LOCSBYLUCS app on your iPhone!',
+                    url: window.location.href
+                }).then(() => {
+                    iosBanner.style.display = 'none';
+                }).catch(() => { /* User cancelled */ });
+            } else {
+                // Fallback for older iOS versions
+                alert('To install: Tap the Share icon ⬆️ at the bottom, then select "Add to Home Screen".');
+            }
+        });
+
+        iosCloseBtn.addEventListener('click', () => {
+            iosBanner.style.display = 'none';
+        });
+
         window.addEventListener('appinstalled', () => {
             installBanner.style.display = 'none';
+            iosBanner.style.display = 'none';
             deferredPrompt = null;
         });
 
@@ -228,7 +284,7 @@
     </script>
 
     <!-- ========================================== -->
-    <!-- RESPONSIVE CSS PATCH (ADDED AT BOTTOM)      -->
+    <!-- RESPONSIVE CSS PATCH (Samsung fix)          -->
     <!-- ========================================== -->
     <style>
         /* Extra safety for mobile screens */
@@ -241,7 +297,8 @@
                 padding: 10px 18px !important;
                 font-size: 0.9rem !important;
             }
-            .logo img { width: 220px !important; } /* Slightly smaller on mobile */
+            /* IMPORTANT: Removed !important here so Samsung detects the logo properly */
+            .logo img { width: 220px; } 
         }
         @media (max-width: 450px) {
             .hero h1 { font-size: 2rem !important; }
