@@ -1,8 +1,9 @@
 {
-  "name":"LocsByLucs",
+  "name": "LocsByLucs",
   "short_name": "LocsByLucs",
   "description": "Master Dreadlock Artistry & Precision Grooming",
   "start_url": ".",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#FAF7F2",
   "theme_color": "#A12568",
