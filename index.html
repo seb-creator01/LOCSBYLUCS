@@ -2,25 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
+    <!-- UPDATED VIEWPORT: Changed user-scalable=no to yes for better responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     
     <title>LOCSBYLUCS ET THE CLIPPERGODDESS | Premium Hair Artistry</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- === PWA & APPLE META TAGS (Matches Tadaa's approach) === -->
+    <!-- === PWA & APPLE META TAGS === -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LocsByLucs">
     <link rel="apple-touch-icon" href="images/pwa-icon-192.png">
     
-    <!-- CRITICAL CHANGE: Using relative path ./ just like Tadaa -->
+    <!-- CRITICAL FIX: Changed to relative path ./ just like Tadaa -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#A12568">
 </head>
 <body>
 
-    <!-- ===== SPLASH SCREEN (Tadaa style - prevents Samsung layout shift) ===== -->
+    <!-- ===== SPLASH SCREEN (Prevents Samsung layout shift) ===== -->
     <div id="splashScreen">
         <div class="splash-container">
             <div class="splash-brand">Locs<span class="splash-exclamation">ByLucs</span></div>
@@ -180,7 +182,7 @@
         </div>
     </footer>
 
-    <!-- ====== PWA INSTALL BANNER (Tadaa-style hiding logic) ====== -->
+    <!-- ====== PWA INSTALL BANNER ====== -->
     <div id="pwa-install-banner" class="pwa-banner" style="display: none;">
         <div class="pwa-content">
             <span class="pwa-text">Install <strong>LOCSBYLUCS</strong> for the best experience!</span>
@@ -197,11 +199,11 @@
         </div>
     </div>
 
-    <!-- ====== JAVASCRIPT (Tadaa-style execution) ====== -->
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
     <script>
-        // ==========================================
-        // SPLASH SCREEN LOGIC (Matches Tadaa exactly)
-        // ==========================================
+        // SPLASH SCREEN LOGIC
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 const splash = document.getElementById('splashScreen');
@@ -211,12 +213,10 @@
                         splash.style.display = 'none';
                     }, 800);
                 }
-            }, 1800); // 1.8 seconds - enough to fool Samsung's layout shift detector
+            }, 1800);
         });
 
-        // ==========================================
-        // PWA INSTALL LOGIC (Matches Tadaa approach)
-        // ==========================================
+        // PWA INSTALL LOGIC
         let deferredPrompt = null;
         const installBanner = document.getElementById('pwa-install-banner');
         const installBtn = document.getElementById('pwa-install-btn');
@@ -226,18 +226,15 @@
         const iosInstallBtn = document.getElementById('ios-install-btn');
         const iosCloseBtn = document.getElementById('ios-close-guide');
 
-        // Detect browsers
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         const isSamsung = /SamsungBrowser/.test(navigator.userAgent);
 
-        // Check if already installed
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
         if (isStandalone) {
             installBanner.style.display = 'none';
             iosBanner.style.display = 'none';
         }
 
-        // 1. Standard Chrome / Android Prompt
         window.addEventListener('beforeinstallprompt', function(e) {
             e.preventDefault();
             deferredPrompt = e;
@@ -255,7 +252,6 @@
                     installBanner.style.display = 'none';
                 }
             } else if (isSamsung) {
-                // Samsung fallback instructions
                 installBanner.innerHTML = `
                     <div class="pwa-content" style="flex-direction:column; align-items:flex-start;">
                         <span style="color:#fff; font-size:14px; width:100%;">
@@ -274,7 +270,6 @@
             installBanner.style.display = 'none';
         });
 
-        // 2. iPhone / Safari
         if (isIOS && !isStandalone) {
             setTimeout(function() {
                 iosBanner.style.display = 'block';
@@ -299,14 +294,13 @@
             iosBanner.style.display = 'none';
         });
 
-        // 3. App Installed Event
         window.addEventListener('appinstalled', function() {
             installBanner.style.display = 'none';
             iosBanner.style.display = 'none';
             deferredPrompt = null;
         });
 
-        // Register Service Worker (Relative path, just like Tadaa)
+        // CRITICAL FIX: Changed to ./sw.js just like Tadaa
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('./sw.js')
@@ -321,7 +315,7 @@
     </script>
 
     <!-- ========================================== -->
-    <!-- SPLASH SCREEN CSS (Matches Tadaa exactly)   -->
+    <!-- SPLASH SCREEN CSS -->
     <!-- ========================================== -->
     <style>
         #splashScreen {
@@ -330,7 +324,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #2A0944; /* Your deep purple */
+            background: #2A0944;
             z-index: 99999;
             display: flex;
             align-items: center;
@@ -395,7 +389,7 @@
     </style>
 
     <!-- ========================================== -->
-    <!-- RESPONSIVE CSS PATCH                        -->
+    <!-- RESPONSIVE CSS PATCH -->
     <!-- ========================================== -->
     <style>
         @media (max-width: 768px) {
